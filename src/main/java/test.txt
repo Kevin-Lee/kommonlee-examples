@@ -1,0 +1,3 @@
+KommonLee (pronounced the same as 'commonly') is a set of commonly used Java libraries written by ​Kevin Lee 
+and is currently used in the software projects owned by Elixirian Pty Ltd and Agin3 Pty Ltd. 
+It is an open source project (The source code will be available soon). 
