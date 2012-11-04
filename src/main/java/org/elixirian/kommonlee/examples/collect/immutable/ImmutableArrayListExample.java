@@ -62,9 +62,9 @@ import org.elixirian.kommonlee.type.functional.Function1;
  */
 public class ImmutableArrayListExample
 {
-  private static void newListWithElements()
+  private static void newListWithElementsJdk()
   {
-    // Traditional
+    // JDK
     final List<Integer> integerList = new ArrayList<Integer>();
     integerList.add(-14);
     integerList.add(-10);
@@ -76,20 +76,23 @@ public class ImmutableArrayListExample
     integerList.add(35);
     integerList.add(100);
     final List<Integer> unmodifiableIntegerList = Collections.unmodifiableList(integerList);
-    System.out.println("## Traditional");
+    System.out.println("## JDK");
     System.out.println(unmodifiableIntegerList);
+  }
 
+  private static void newListWithElementsKommonLee()
+  {
     // KommonLee
     final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     System.out.println("\n## KommonLee");
     System.out.println(immutableIntegerList);
   }
 
-  private static void selectSpecificElementsFromList()
+  private static void selectSpecificElementsFromListJdk()
   {
     /* get all positive integer. */
 
-    // Traditional
+    // JDK
     final List<Integer> integerList = new ArrayList<Integer>();
     integerList.add(-14);
     integerList.add(-10);
@@ -111,11 +114,14 @@ public class ImmutableArrayListExample
       }
     }
     final List<Integer> unmodifiablePositiveIntegerList = Collections.unmodifiableList(positiveIntegerList);
-    System.out.println("## Traditional");
+    System.out.println("## JDK");
     System.out.println("unmodifiableIntegerList: \n" + unmodifiableIntegerList);
     System.out.println("positiveIntegerList: \n" + positiveIntegerList);
     System.out.println("unmodifiablePositiveIntegerList: \n" + unmodifiablePositiveIntegerList);
+  }
 
+  private static void selectSpecificElementsFromListKommonLee()
+  {
     // KommonLee
     final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     final ImmutableList<Integer> immutablePositiveIntegerList = immutableIntegerList.select(new Condition1<Integer>() {
@@ -130,11 +136,11 @@ public class ImmutableArrayListExample
     System.out.println("positive Integers from immutableIntegerList: \n" + immutablePositiveIntegerList);
   }
 
-  private static void mapElementsInList()
+  private static void mapElementsInListJdk()
   {
     /* get all positive integer. */
 
-    // Traditional
+    // JDK
     final List<Integer> integerList = new ArrayList<Integer>();
     integerList.add(-14);
     integerList.add(-10);
@@ -153,11 +159,14 @@ public class ImmutableArrayListExample
       mappedList.add("The number is " + integer + ".");
     }
     final List<String> unmodifiableMappedList = Collections.unmodifiableList(mappedList);
-    System.out.println("## Traditional");
+    System.out.println("## JDK");
     System.out.println("unmodifiableIntegerList: \n" + unmodifiableIntegerList);
     System.out.println("mappedList: \n" + mappedList);
     System.out.println("unmodifiableMappedList: \n" + unmodifiableMappedList);
+  }
 
+  private static void mapElementsInListKommonLee()
+  {
     // KommonLee
     final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     final ImmutableList<String> immutableMappedList = immutableIntegerList.map(new Function1<Integer, String>() {
@@ -175,13 +184,16 @@ public class ImmutableArrayListExample
   public static void main(final String[] args)
   {
     System.out.println("newListWithElements()");
-    newListWithElements();
+    newListWithElementsJdk();
+    newListWithElementsKommonLee();
 
     System.out.println("\nselectSpecificElementsFromList()");
-    selectSpecificElementsFromList();
+    selectSpecificElementsFromListJdk();
+    selectSpecificElementsFromListKommonLee();
 
     System.out.println("\nmapElementsInList()");
-    mapElementsInList();
+    mapElementsInListJdk();
+    mapElementsInListKommonLee();
   }
 
 }
