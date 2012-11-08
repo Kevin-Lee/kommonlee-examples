@@ -138,7 +138,7 @@ public class ImmutableArrayListExample
 
   private static void mapElementsInListJdk()
   {
-    /* get all positive integer. */
+    /* List of String created from the numbers in another list. */
 
     // JDK
     final List<Integer> integerList = new ArrayList<Integer>();
