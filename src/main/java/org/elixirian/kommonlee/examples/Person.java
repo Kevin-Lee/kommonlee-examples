@@ -1,7 +1,7 @@
 /**
  *
  */
-package org.elixirian.kommonlee.examples.asm.analysis;
+package org.elixirian.kommonlee.examples;
 
 /**
  * <pre>

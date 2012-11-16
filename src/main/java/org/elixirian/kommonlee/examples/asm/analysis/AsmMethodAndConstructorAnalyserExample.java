@@ -43,6 +43,7 @@ import org.elixirian.kommonlee.asm.analysis.AsmMethodAndConstructorAnalyser;
 import org.elixirian.kommonlee.asm.analysis.ConstructorAnalyser;
 import org.elixirian.kommonlee.asm.analysis.MethodAnalyser;
 import org.elixirian.kommonlee.asm.analysis.MethodAndConstructorAnalyser;
+import org.elixirian.kommonlee.examples.Person;
 
 /**
  * <pre>
