@@ -35,7 +35,9 @@ import static org.elixirian.kommonlee.functional.collect.CollectionUtil.*;
 import static org.elixirian.kommonlee.util.collect.Lists.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.elixirian.kommonlee.examples.Person;
 import org.elixirian.kommonlee.type.functional.Condition1;
@@ -82,15 +84,6 @@ public class CollectionUtilExample
     integerList.add(999);
     integerList.add(1234);
 
-    final List<Integer> positiveIntegerList = new ArrayList<Integer>();
-    for (final Integer integer : integerList)
-    {
-      if (0 < integer.intValue())
-      {
-        positiveIntegerList.add(integer);
-      }
-    }
-    System.out.println("positiveIntegerList: " + positiveIntegerList);
     final List<Integer> anotherIntegerList = new ArrayList<Integer>();
     anotherIntegerList.add(-555);
     anotherIntegerList.add(-46);
@@ -107,6 +100,16 @@ public class CollectionUtilExample
     anotherIntegerList.add(100);
     anotherIntegerList.add(9999);
 
+    final List<Integer> positiveIntegerList = new ArrayList<Integer>();
+    for (final Integer integer : integerList)
+    {
+      if (0 < integer.intValue())
+      {
+        positiveIntegerList.add(integer);
+      }
+    }
+    System.out.println("positiveIntegerList: " + positiveIntegerList);
+
     final List<Integer> anotherPositiveIntegerList = new ArrayList<Integer>();
     for (final Integer integer : anotherIntegerList)
     {
@@ -121,6 +124,12 @@ public class CollectionUtilExample
   private static void selectAllPositiveIntegerKommonLee()
   {
     System.out.println("CollectionUtilExample.selectAllPositiveIntegerKommonLee()");
+
+    final List<Integer> integerList = newArrayList(-100, -55, -32, -21, -17, -10, -3, 0, 1, 15, 33, 77, 999, 1234);
+
+    final List<Integer> anotherIntegerList =
+      newArrayList(-555, -46, -23, -11, -8, -5, -1, 2, 11, 14, 24, 56, 100, 9999);
+
     final Condition1<Integer> positiveInteger = new Condition1<Integer>() {
       @Override
       public boolean isMet(final Integer integer)
@@ -129,15 +138,10 @@ public class CollectionUtilExample
       }
     };
 
-    final List<Integer> integerList = newArrayList(-100, -55, -32, -21, -17, -10, -3, 0, 1, 15, 33, 77, 999, 1234);
-
     final List<Integer> positiveIntegerList = selector().fromIterable()
         .toArrayList()
         .select(positiveInteger, integerList);
     System.out.println("positiveIntegerList: " + positiveIntegerList);
-
-    final List<Integer> anotherIntegerList =
-      newArrayList(-555, -46, -23, -11, -8, -5, -1, 2, 11, 14, 24, 56, 100, 9999);
 
     final List<Integer> anotherPositiveIntegerList = selector().fromIterable()
         .toArrayList()
@@ -156,6 +160,11 @@ public class CollectionUtilExample
     personList.add(new Person("Odinson", "Thor", "thor.odinson@asgard.com"));
     personList.add(new Person("Stark", "Tony", "tony.stark@stark.com"));
 
+    final List<Person> personList2 = new ArrayList<Person>();
+    personList2.add(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"));
+    personList2.add(new Person("Jordan", "Hal", "hal.jordan@earth.com"));
+    personList2.add(new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
+
     final List<String> emailAddressList = new ArrayList<String>();
     for (final Person person : personList)
     {
@@ -163,22 +172,28 @@ public class CollectionUtilExample
     }
     System.out.println("emailAddressList: " + emailAddressList);
 
-    final List<Person> personList2 = new ArrayList<Person>();
-    personList2.add(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"));
-    personList2.add(new Person("Jordan", "Hal", "hal.jordan@earth.com"));
-    personList2.add(new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
-
-    final List<String> emailAddressList2 = new ArrayList<String>();
+    final Set<String> emailAddressSet = new HashSet<String>();
     for (final Person person : personList2)
     {
-      emailAddressList2.add(person.getEmail());
+      emailAddressSet.add(person.getEmail());
     }
-    System.out.println("emailAddressList2: " + emailAddressList2);
+    System.out.println("emailAddressSet: " + emailAddressSet);
   }
 
   private static void getAllEmailAddressesKommonLee()
   {
     System.out.println("CollectionUtilExample.getAllEmailAddressesKommonLee()");
+
+    final List<Person> personList =
+      newArrayList(new Person("Lee", "Kevin", "test@test.email.com"), new Person("Kent", "Clark",
+          "clark.kent@krypton.com"), new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"), new Person("Lee", "Tom",
+          "test@another.test-email.com"), new Person("Odinson", "Thor", "thor.odinson@asgard.com"), new Person("Stark",
+          "Tony", "tony.stark@stark.com"));
+
+    final List<Person> personList2 =
+      newArrayList(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"), new Person("Jordan", "Hal",
+          "hal.jordan@earth.com"), new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
+
     final Function1<Person, String> personToEmailMapper = new Function1<Person, String>() {
       @Override
       public String apply(final Person person)
@@ -187,25 +202,15 @@ public class CollectionUtilExample
       }
     };
 
-    final List<Person> personList =
-      newArrayList(new Person("Lee", "Kevin", "test@test.email.com"), new Person("Kent", "Clark",
-          "clark.kent@krypton.com"), new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"), new Person("Lee", "Tom",
-          "test@another.test-email.com"), new Person("Odinson", "Thor", "thor.odinson@asgard.com"), new Person("Stark",
-          "Tony", "tony.stark@stark.com"));
-
     final List<String> emailAddressList = mapper().fromIterable()
         .toArrayList()
         .map(personToEmailMapper, personList);
     System.out.println("emailAddressList: " + emailAddressList);
 
-    final List<Person> personList2 =
-      newArrayList(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"), new Person("Jordan", "Hal",
-          "hal.jordan@earth.com"), new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
-
-    final List<String> emailAddressList2 = mapper().fromIterable()
-        .toArrayList()
+    final Set<String> emailAddressSet = mapper().fromIterable()
+        .toHashSet()
         .map(personToEmailMapper, personList2);
-    System.out.println("emailAddressList2: " + emailAddressList2);
+    System.out.println("emailAddressSet: " + emailAddressSet);
   }
 
   public static void main(final String[] args)
