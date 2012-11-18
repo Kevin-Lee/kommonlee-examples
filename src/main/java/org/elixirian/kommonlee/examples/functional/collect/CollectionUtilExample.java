@@ -121,6 +121,14 @@ public class CollectionUtilExample
     System.out.println("anotherPositiveIntegerList: " + anotherPositiveIntegerList);
   }
 
+  private static final Condition1<Integer> POSITIVE_INTEGER = new Condition1<Integer>() {
+    @Override
+    public boolean isMet(final Integer integer)
+    {
+      return 0 < integer.intValue();
+    }
+  };
+
   private static void selectAllPositiveIntegerKommonLee()
   {
     System.out.println("CollectionUtilExample.selectAllPositiveIntegerKommonLee()");
@@ -130,87 +138,140 @@ public class CollectionUtilExample
     final List<Integer> anotherIntegerList =
       newArrayList(-555, -46, -23, -11, -8, -5, -1, 2, 11, 14, 24, 56, 100, 9999);
 
-    final Condition1<Integer> positiveInteger = new Condition1<Integer>() {
-      @Override
-      public boolean isMet(final Integer integer)
-      {
-        return 0 < integer.intValue();
-      }
-    };
-
-    final List<Integer> positiveIntegerList = selector().fromIterable()
+    /* @formatter:off */
+    // KommonLee
+    final List<Integer> positiveIntegerList = selector()
+        .fromIterable()
         .toArrayList()
-        .select(positiveInteger, integerList);
+        .select(POSITIVE_INTEGER, integerList);
     System.out.println("positiveIntegerList: " + positiveIntegerList);
 
-    final List<Integer> anotherPositiveIntegerList = selector().fromIterable()
+    final List<Integer> anotherPositiveIntegerList = selector()
+        .fromIterable()
         .toArrayList()
-        .select(positiveInteger, anotherIntegerList);
+        .select(POSITIVE_INTEGER, anotherIntegerList);
     System.out.println("anotherPositiveIntegerList: " + anotherPositiveIntegerList);
+    /* @formatter:on */
   }
+
+  /* @formatter:off */
+  private static final List<Person> PERSON_LIST =
+    newArrayList(new Person("Lee", "Kevin", "test@test.email.com"),
+                 new Person("Kent", "Clark", "clark.kent@krypton.com"),
+                 new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"),
+                 new Person("Lee", "Tom", "test@another.test-email.com"),
+                 new Person("Odinson", "Thor", "thor.odinson@asgard.com"),
+                 new Person("Stark", "Tony", "tony.stark@stark.com"));
+
+  private static final List<Person> PERSON_LIST_2 =
+    newArrayList(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"),
+                 new Person("Jordan", "Hal", "hal.jordan@earth.com"),
+                 new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
+  /* @formatter:on */
 
   private static void getAllEmailAddressesJdk()
   {
     System.out.println("CollectionUtilExample.getAllEmailAddressesJdk()");
-    final List<Person> personList = new ArrayList<Person>();
-    personList.add(new Person("Lee", "Kevin", "test@test.email.com"));
-    personList.add(new Person("Kent", "Clark", "clark.kent@krypton.com"));
-    personList.add(new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"));
-    personList.add(new Person("Lee", "Tom", "test@another.test-email.com"));
-    personList.add(new Person("Odinson", "Thor", "thor.odinson@asgard.com"));
-    personList.add(new Person("Stark", "Tony", "tony.stark@stark.com"));
-
-    final List<Person> personList2 = new ArrayList<Person>();
-    personList2.add(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"));
-    personList2.add(new Person("Jordan", "Hal", "hal.jordan@earth.com"));
-    personList2.add(new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
 
     final List<String> emailAddressList = new ArrayList<String>();
-    for (final Person person : personList)
+    for (final Person person : PERSON_LIST)
     {
       emailAddressList.add(person.getEmail());
     }
     System.out.println("emailAddressList: " + emailAddressList);
 
     final Set<String> emailAddressSet = new HashSet<String>();
-    for (final Person person : personList2)
+    for (final Person person : PERSON_LIST_2)
     {
       emailAddressSet.add(person.getEmail());
     }
     System.out.println("emailAddressSet: " + emailAddressSet);
   }
 
+  private static final Function1<Person, String> PERSON_TO_EMAIL_MAPPER = new Function1<Person, String>() {
+    @Override
+    public String apply(final Person person)
+    {
+      return person.getEmail();
+    }
+  };
+
   private static void getAllEmailAddressesKommonLee()
   {
     System.out.println("CollectionUtilExample.getAllEmailAddressesKommonLee()");
 
-    final List<Person> personList =
-      newArrayList(new Person("Lee", "Kevin", "test@test.email.com"), new Person("Kent", "Clark",
-          "clark.kent@krypton.com"), new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"), new Person("Lee", "Tom",
-          "test@another.test-email.com"), new Person("Odinson", "Thor", "thor.odinson@asgard.com"), new Person("Stark",
-          "Tony", "tony.stark@stark.com"));
-
-    final List<Person> personList2 =
-      newArrayList(new Person("Rogers", "Steve", "steve.rogers@captain.america.com"), new Person("Jordan", "Hal",
-          "hal.jordan@earth.com"), new Person("Banner", "Bruce", "bruce.banner@hulk.com"));
-
-    final Function1<Person, String> personToEmailMapper = new Function1<Person, String>() {
-      @Override
-      public String apply(final Person person)
-      {
-        return person.getEmail();
-      }
-    };
-
-    final List<String> emailAddressList = mapper().fromIterable()
+    /* @formatter:off */
+    // KommonLee
+    final List<String> emailAddressList = mapper()
+        .fromIterable()
         .toArrayList()
-        .map(personToEmailMapper, personList);
+        .map(PERSON_TO_EMAIL_MAPPER, PERSON_LIST);
     System.out.println("emailAddressList: " + emailAddressList);
 
-    final Set<String> emailAddressSet = mapper().fromIterable()
+    final Set<String> emailAddressSet = mapper()
+        .fromIterable()
         .toHashSet()
-        .map(personToEmailMapper, personList2);
+        .map(PERSON_TO_EMAIL_MAPPER, PERSON_LIST_2);
     System.out.println("emailAddressSet: " + emailAddressSet);
+    /* @formatter:on */
+  }
+
+  /* @formatter:off */
+  private static final Person[] PERSON_ARRAY = {
+      new Person("Lee", "Kevin", "test@test.email.com"),
+      new Person("Kent", "Clark", "clark.kent@krypton.com"),
+      new Person("Wayne", "Bruce", "bruce.wayne@gotham.com"),
+      new Person("Lee", "Tom", "test@another.test-email.com"),
+      new Person("Odinson", "Thor", "thor.odinson@asgard.com"),
+      new Person("Stark", "Tony", "tony.stark@stark.com")
+  };
+  /* @formatter:on */
+
+  /* @formatter:off */
+  private static final Person[] PERSON_ARRAY_2 = {
+      new Person("Rogers", "Steve", "steve.rogers@captain.america.com"),
+      new Person("Jordan", "Hal", "hal.jordan@earth.com"),
+      new Person("Banner", "Bruce", "bruce.banner@hulk.com")
+  };
+  /* @formatter:on */
+
+  private static void getAllEmailAddressesFromPersonArrayJdk()
+  {
+    System.out.println("CollectionUtilExample.getAllEmailAddressesFromPersonArrayJdk()");
+
+    final List<String> emailAddressList = new ArrayList<String>();
+    for (final Person person : PERSON_ARRAY)
+    {
+      emailAddressList.add(person.getEmail());
+    }
+    System.out.println("emailAddressList: " + emailAddressList);
+
+    final Set<String> emailAddressSet = new HashSet<String>();
+    for (final Person person : PERSON_ARRAY_2)
+    {
+      emailAddressSet.add(person.getEmail());
+    }
+    System.out.println("emailAddressSet: " + emailAddressSet);
+  }
+
+  private static void getAllEmailAddressesFromPersonArrayKommonLee()
+  {
+    System.out.println("CollectionUtilExample.getAllEmailAddressesFromPersonArrayKommonLee()");
+
+    /* @formatter:off */
+    // KommonLee
+    final List<String> emailAddressList = mapper()
+        .fromArray()
+        .toArrayList()
+        .map(PERSON_TO_EMAIL_MAPPER, PERSON_ARRAY);
+    System.out.println("emailAddressList: " + emailAddressList);
+
+    final Set<String> emailAddressSet = mapper()
+        .fromArray()
+        .toHashSet()
+        .map(PERSON_TO_EMAIL_MAPPER, PERSON_ARRAY_2);
+    System.out.println("emailAddressSet: " + emailAddressSet);
+    /* @formatter:on */
   }
 
   public static void main(final String[] args)
@@ -222,5 +283,9 @@ public class CollectionUtilExample
     getAllEmailAddressesJdk();
     System.out.println();
     getAllEmailAddressesKommonLee();
+    System.out.println();
+    getAllEmailAddressesFromPersonArrayJdk();
+    System.out.println();
+    getAllEmailAddressesFromPersonArrayKommonLee();
   }
 }
