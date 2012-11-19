@@ -279,13 +279,14 @@ public class CollectionUtilExample
     selectAllPositiveIntegerJdk();
     System.out.println();
     selectAllPositiveIntegerKommonLee();
-    System.out.println("\n");
+    System.out.println("=================================================\n");
     getAllEmailAddressesJdk();
     System.out.println();
     getAllEmailAddressesKommonLee();
-    System.out.println();
+    System.out.println("=================================================\n");
     getAllEmailAddressesFromPersonArrayJdk();
     System.out.println();
     getAllEmailAddressesFromPersonArrayKommonLee();
+    System.out.println("=================================================\n");
   }
 }
