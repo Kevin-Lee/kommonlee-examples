@@ -32,9 +32,11 @@
 package org.elixirian.kommonlee.examples.functional.collect;
 
 import static org.elixirian.kommonlee.functional.collect.CollectionUtil.*;
+import static org.elixirian.kommonlee.util.Objects.*;
 import static org.elixirian.kommonlee.util.collect.Lists.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -51,7 +53,7 @@ import org.elixirian.kommonlee.type.functional.Function1;
  *  /        \ /  /_/ _/  _  _  /  _  _  //  /_/ _/   __   //    /___/  _____/  _____/
  * /____/\____\/_____//__//_//_/__//_//_/ /_____//___/ /__//________/\_____/ \_____/
  * </pre>
- *
+ * 
  * <pre>
  *     ___  _____                                _____
  *    /   \/    /_________  ___ ____ __ ______  /    /   ______  ______
@@ -59,15 +61,31 @@ import org.elixirian.kommonlee.type.functional.Function1;
  *  /        \ /  _____/\    //   //   __   / /    /___/  _____/  _____/
  * /____/\____\\_____/   \__//___//___/ /__/ /________/\_____/ \_____/
  * </pre>
- *
+ * 
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2012-11-16)
  */
 public class CollectionUtilExample
 {
+  @SuppressWarnings("boxing")
+  private static final Integer[] INTEGER_ARRAY = new Integer[] { -100, -55, -32, -21, -17, -10, -3, 0, 1, 15, 33, 77, 999, 1234 };
+
   private static void selectAllPositiveIntegerJdk()
   {
     System.out.println("CollectionUtilExample.selectAllPositiveIntegerJdk()");
+
+    final List<Integer> positiveIntegerListForArray = new ArrayList<Integer>();
+    for (final Integer integer : INTEGER_ARRAY)
+    {
+      if (0 < integer.intValue())
+      {
+        positiveIntegerListForArray.add(integer);
+      }
+    }
+    final Integer[] positiveIntegerArray =
+      positiveIntegerListForArray.toArray(new Integer[positiveIntegerListForArray.size()]);
+    System.out.println("positiveIntegerArray: " + Arrays.toString(positiveIntegerArray));
+
     final List<Integer> integerList = new ArrayList<Integer>();
     integerList.add(-100);
     integerList.add(-55);
@@ -133,13 +151,19 @@ public class CollectionUtilExample
   {
     System.out.println("CollectionUtilExample.selectAllPositiveIntegerKommonLee()");
 
-    final List<Integer> integerList = newArrayList(-100, -55, -32, -21, -17, -10, -3, 0, 1, 15, 33, 77, 999, 1234);
-
-    final List<Integer> anotherIntegerList =
-      newArrayList(-555, -46, -23, -11, -8, -5, -1, 2, 11, 14, 24, 56, 100, 9999);
-
     /* @formatter:off */
     // KommonLee
+    final Integer[] positiveIntegerArray = selector()
+        .fromArray()
+        .toArray()
+        .select(POSITIVE_INTEGER, INTEGER_ARRAY);
+    System.out.println("positiveIntegerArray: " + toStringOf(positiveIntegerArray));
+
+    final List<Integer> integerList = newArrayList(-100, -55, -32, -21, -17, -10, -3, 0, 1, 15, 33, 77, 999, 1234);
+    
+    final List<Integer> anotherIntegerList =
+        newArrayList(-555, -46, -23, -11, -8, -5, -1, 2, 11, 14, 24, 56, 100, 9999);
+    
     final List<Integer> positiveIntegerList = selector()
         .fromIterable()
         .toArrayList()
@@ -202,6 +226,12 @@ public class CollectionUtilExample
 
     /* @formatter:off */
     // KommonLee
+    final String[] emailAddressArray = mapper()
+        .fromArray()
+        .toArray()
+        .map(String.class, PERSON_TO_EMAIL_MAPPER, PERSON_ARRAY);
+    System.out.println("emailAddressArray: " + toStringOf(emailAddressArray));
+
     final List<String> emailAddressList = mapper()
         .fromIterable()
         .toArrayList()
