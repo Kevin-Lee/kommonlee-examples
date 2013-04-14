@@ -35,8 +35,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.elixirian.kommonlee.collect.immutable.ImmutableArrayList;
 import org.elixirian.kommonlee.collect.immutable.ImmutableList;
+import org.elixirian.kommonlee.collect.immutable.ImmutableLists;
 import org.elixirian.kommonlee.type.functional.Condition1;
 import org.elixirian.kommonlee.type.functional.Function1;
 
@@ -83,7 +83,7 @@ public class ImmutableArrayListExample
   private static void newListWithElementsKommonLee()
   {
     // KommonLee
-    final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
+    final ImmutableList<Integer> immutableIntegerList = ImmutableLists.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     System.out.println("\n## KommonLee");
     System.out.println(immutableIntegerList);
   }
@@ -123,7 +123,7 @@ public class ImmutableArrayListExample
   private static void selectSpecificElementsFromListKommonLee()
   {
     // KommonLee
-    final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
+    final ImmutableList<Integer> immutableIntegerList = ImmutableLists.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     final ImmutableList<Integer> immutablePositiveIntegerList = immutableIntegerList.select(new Condition1<Integer>() {
       @Override
       public boolean isMet(final Integer integer)
@@ -168,7 +168,7 @@ public class ImmutableArrayListExample
   private static void mapElementsInListKommonLee()
   {
     // KommonLee
-    final ImmutableList<Integer> immutableIntegerList = ImmutableArrayList.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
+    final ImmutableList<Integer> immutableIntegerList = ImmutableLists.listOf(-14, -10, -1, 0, 1, 2, 10, 35, 100);
     final ImmutableList<String> immutableMappedList = immutableIntegerList.map(new Function1<Integer, String>() {
       @Override
       public String apply(final Integer integer)

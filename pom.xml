@@ -14,7 +14,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.6</java.version>
-    <junit.version>4.8.2</junit.version>
+    <junit.version>4.10</junit.version>
   </properties>
   <issueManagement>
     <url>http://projects.elixirian.org/kommonlee</url>
@@ -69,39 +69,10 @@
     </dependency>
     <dependency>
     	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-type</artifactId>
-    	<version>0.0.15-SNAPSHOT</version>
+    	<artifactId>kommonlee-core</artifactId>
+    	<version>0.0.30-SNAPSHOT</version>
     </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-util</artifactId>
-    	<version>0.0.25-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-exception</artifactId>
-    	<version>0.0.16-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-function</artifactId>
-    	<version>0.0.8-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-validation</artifactId>
-    	<version>0.0.26-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-reflect</artifactId>
-    	<version>0.0.15-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-collection</artifactId>
-    	<version>0.0.14-SNAPSHOT</version>
-    </dependency>
+
     <dependency>
     	<groupId>org.elixirian</groupId>
     	<artifactId>kommonlee-3rd-asm</artifactId>
@@ -110,29 +81,25 @@
     <dependency>
     	<groupId>org.elixirian</groupId>
     	<artifactId>kommonlee-asm</artifactId>
-    	<version>0.0.17-SNAPSHOT</version>
+    	<version>0.0.21-SNAPSHOT</version>
     </dependency>
+
     <dependency>
     	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-io</artifactId>
-    	<version>0.0.19-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.elixirian</groupId>
-    	<artifactId>kommonlee-web</artifactId>
-    	<version>0.0.7-SNAPSHOT</version>
+    	<artifactId>kommonlee-web3</artifactId>
+    	<version>0.0.13-SNAPSHOT</version>
     </dependency>
 
     <dependency>
       <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
-      <version>2.5</version>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>javax.servlet.jsp</groupId>
       <artifactId>jsp-api</artifactId>
-      <version>2.1</version>
+      <version>2.2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
