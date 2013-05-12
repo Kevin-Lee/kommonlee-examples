@@ -41,8 +41,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.elixirian.kommonlee.io.ByteArrayConsumer;
+import org.elixirian.kommonlee.io.ByteArrayConsumingContainer;
+import org.elixirian.kommonlee.io.DataConsumers;
 
 /**
  * <pre>
@@ -52,7 +55,7 @@ import org.elixirian.kommonlee.io.ByteArrayConsumer;
  *  /        \ /  /_/ _/  _  _  /  _  _  //  /_/ _/   __   //    /___/  _____/  _____/
  * /____/\____\/_____//__//_//_/__//_//_/ /_____//___/ /__//________/\_____/ \_____/
  * </pre>
- *
+ * 
  * <pre>
  *     ___  _____                                _____
  *    /   \/    /_________  ___ ____ __ ______  /    /   ______  ______
@@ -60,7 +63,7 @@ import org.elixirian.kommonlee.io.ByteArrayConsumer;
  *  /        \ /  _____/\    //   //   __   / /    /___/  _____/  _____/
  * /____/\____\\_____/   \__//___//___/ /__/ /________/\_____/ \_____/
  * </pre>
- *
+ * 
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2012-10-28)
  */
@@ -79,11 +82,11 @@ public final class IoUtilExample
   private static void readFileTraditional() throws URISyntaxException
   {
     System.out.println("\n>> IoUtilExample.readFileTraditional() <<");
-    final StringBuilder stringBuilder = new StringBuilder();
     final File file = new File(new URI(IoUtilExample.class.getResource("/test.txt")
         .toString()));
     InputStream inputStream = null;
     final int bufferSize = 131072; // 128Ki
+    final List<Byte> byteList = new ArrayList<Byte>();
 
     try
     {
@@ -93,7 +96,10 @@ public final class IoUtilExample
 
       while (-1 < bytesRead)
       {
-        stringBuilder.append(new String(buffer, 0, bytesRead));
+        for (int i = 0; i < bytesRead; i++)
+        {
+          byteList.add(buffer[i]);
+        }
         bytesRead = inputStream.read(buffer);
       }
     }
@@ -115,32 +121,32 @@ public final class IoUtilExample
         }
       }
     }
-    System.out.println(stringBuilder);
+    final int length = byteList.size();
+    final byte[] bytes = new byte[length];
+    for (int i = 0; i < length; i++)
+    {
+      bytes[i] = byteList.get(i);
+    }
+    System.out.println(new String(bytes));
   }
 
   private static void readFileKommonLee() throws URISyntaxException
   {
     System.out.println("\n>> IoUtilExample.readFileKommonLee() <<");
-    final StringBuilder stringBuilder = new StringBuilder();
+    final ByteArrayConsumingContainer byteArrayConsumingContainer = DataConsumers.newByteArrayConsumingContainer();
     final File file = new File(new URI(IoUtilExample.class.getResource("/test.txt")
         .toString()));
-    readFile(file, BUFFER_SIZE_128Ki, new ByteArrayConsumer() {
-      @Override
-      public void consume(final byte[] bytes, final int offset, final int count) throws IOException
-      {
-        stringBuilder.append(new String(bytes, offset, count));
-      }
-    });
-    System.out.println(stringBuilder);
+    readFile(file, BUFFER_SIZE_128Ki, byteArrayConsumingContainer);
+    System.out.println(byteArrayConsumingContainer.toString());
   }
 
   private static void readInputStreamTraditional()
   {
     System.out.println("\n>> IoUtilExample.readInputStreamTraditional() <<");
-    final StringBuilder stringBuilder = new StringBuilder();
     final InputStream inputStream = IoUtilExample.class.getResourceAsStream("/test.txt");
     final int bufferSize = 131072; // 128Ki
     InputStream bufferedInputStream = null;
+    final List<Byte> byteList = new ArrayList<Byte>();
 
     try
     {
@@ -150,7 +156,10 @@ public final class IoUtilExample
 
       while (-1 < bytesRead)
       {
-        stringBuilder.append(new String(buffer, 0, bytesRead));
+        for (int i = 0; i < bytesRead; i++)
+        {
+          byteList.add(buffer[i]);
+        }
         bytesRead = bufferedInputStream.read(buffer);
       }
     }
@@ -183,22 +192,22 @@ public final class IoUtilExample
         }
       }
     }
-    System.out.println(stringBuilder);
+    final int length = byteList.size();
+    final byte[] bytes = new byte[length];
+    for (int i = 0; i < length; i++)
+    {
+      bytes[i] = byteList.get(i);
+    }
+    System.out.println(new String(bytes));
   }
 
   private static void readInputStreamKommonLee()
   {
     System.out.println("\n>> IoUtilExample.readInputStreamKommonLee() <<");
-    final StringBuilder stringBuilder = new StringBuilder();
     final InputStream inputStream = IoUtilExample.class.getResourceAsStream("/test.txt");
-    readInputStream(inputStream, BUFFER_SIZE_128Ki, new ByteArrayConsumer() {
-      @Override
-      public void consume(final byte[] bytes, final int offset, final int count) throws IOException
-      {
-        stringBuilder.append(new String(bytes, offset, count));
-      }
-    });
-    System.out.println(stringBuilder);
+    final ByteArrayConsumingContainer byteArrayConsumingContainer = DataConsumers.newByteArrayConsumingContainer();
+    readInputStream(inputStream, BUFFER_SIZE_128Ki, byteArrayConsumingContainer);
+    System.out.println(byteArrayConsumingContainer.toString());
   }
 
 }
