@@ -32,20 +32,27 @@
 package org.elixirian.kommonlee.examples.io;
 
 import static org.elixirian.kommonlee.io.IoCommonConstants.*;
-import static org.elixirian.kommonlee.io.util.IoUtil.*;
+import static org.elixirian.kommonlee.nio.util.NioUtil.*;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
+import java.nio.channels.FileChannel;
+import java.nio.channels.ReadableByteChannel;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.elixirian.kommonlee.io.ByteArrayConsumingContainer;
 import org.elixirian.kommonlee.io.DataConsumers;
+import org.elixirian.kommonlee.io.exception.RuntimeFileNotFoundException;
+import org.elixirian.kommonlee.io.exception.RuntimeIoException;
 
 /**
  * <pre>
@@ -67,7 +74,7 @@ import org.elixirian.kommonlee.io.DataConsumers;
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2012-10-28)
  */
-public final class IoUtilExample
+public final class NioUtilExample
 {
 
   public static void main(final String[] args) throws URISyntaxException
@@ -81,39 +88,60 @@ public final class IoUtilExample
 
   private static void readFileTraditional() throws URISyntaxException
   {
-    System.out.println("\n>> IoUtilExample.readFileTraditional() <<");
-    final File file = new File(new URI(IoUtilExample.class.getResource("/test.txt")
+    System.out.println("\n>> NioUtilExample.readFileTraditional() <<");
+    final File file = new File(new URI(NioUtilExample.class.getResource("/test.txt")
         .toString()));
-    InputStream inputStream = null;
+
+    FileInputStream fileInputStream = null;
+    FileChannel fileChannel = null;
+
     final int bufferSize = 131072; // 128Ki
     final List<Byte> byteList = new ArrayList<Byte>();
 
     try
     {
-      inputStream = new FileInputStream(file);
-      final byte[] buffer = new byte[bufferSize];
-      int bytesRead = inputStream.read(buffer);
+      fileInputStream = new FileInputStream(file);
+      fileChannel = fileInputStream.getChannel();
 
-      while (-1 < bytesRead)
+      final byte[] buffer = new byte[bufferSize];
+      final ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
+      int bytesRead = fileChannel.read(byteBuffer);
+      while (-1 != bytesRead)
       {
         for (int i = 0; i < bytesRead; i++)
         {
           byteList.add(buffer[i]);
         }
-        bytesRead = inputStream.read(buffer);
+        byteBuffer.clear();
+        bytesRead = fileChannel.read(byteBuffer);
       }
+    }
+    catch (final FileNotFoundException e)
+    {
+      throw new RuntimeException(e);
     }
     catch (final IOException e)
     {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     finally
     {
-      if (null != inputStream)
+      if (null != fileChannel)
       {
         try
         {
-          inputStream.close();
+          fileChannel.close();
+        }
+        catch (final IOException e)
+        {
+          e.printStackTrace();
+        }
+      }
+      if (null != fileInputStream)
+      {
+        try
+        {
+          fileInputStream.close();
         }
         catch (final IOException e)
         {
@@ -132,9 +160,9 @@ public final class IoUtilExample
 
   private static void readFileKommonLee() throws URISyntaxException
   {
-    System.out.println("\n>> IoUtilExample.readFileKommonLee() <<");
+    System.out.println("\n>> NioUtilExample.readFileKommonLee() <<");
     final ByteArrayConsumingContainer byteArrayConsumingContainer = DataConsumers.newByteArrayConsumingContainer();
-    final File file = new File(new URI(IoUtilExample.class.getResource("/test.txt")
+    final File file = new File(new URI(NioUtilExample.class.getResource("/test.txt")
         .toString()));
     readFile(file, BUFFER_SIZE_128Ki, byteArrayConsumingContainer);
     System.out.println(byteArrayConsumingContainer.toString());
@@ -142,39 +170,46 @@ public final class IoUtilExample
 
   private static void readInputStreamTraditional()
   {
-    System.out.println("\n>> IoUtilExample.readInputStreamTraditional() <<");
+    System.out.println("\n>> NioUtilExample.readInputStreamTraditional() <<");
     InputStream inputStream = null;
-    InputStream bufferedInputStream = null;
+    ReadableByteChannel readableByteChannel = null;
+
     final int bufferSize = 131072; // 128Ki
     final List<Byte> byteList = new ArrayList<Byte>();
 
     try
     {
-      inputStream = IoUtilExample.class.getResourceAsStream("/test.txt");
-      bufferedInputStream = new BufferedInputStream(inputStream, bufferSize);
-      final byte[] buffer = new byte[bufferSize];
-      int bytesRead = bufferedInputStream.read(buffer);
+      inputStream = NioUtilExample.class.getResourceAsStream("/test.txt");
+      readableByteChannel = Channels.newChannel(inputStream);
 
-      while (-1 < bytesRead)
+      final byte[] buffer = new byte[bufferSize];
+      final ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
+      int bytesRead = readableByteChannel.read(byteBuffer);
+      while (-1 != bytesRead)
       {
         for (int i = 0; i < bytesRead; i++)
         {
           byteList.add(buffer[i]);
         }
-        bytesRead = bufferedInputStream.read(buffer);
+        byteBuffer.clear();
+        bytesRead = readableByteChannel.read(byteBuffer);
       }
+    }
+    catch (final FileNotFoundException e)
+    {
+      throw new RuntimeException(e);
     }
     catch (final IOException e)
     {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     finally
     {
-      if (null != bufferedInputStream)
+      if (null != readableByteChannel)
       {
         try
         {
-          bufferedInputStream.close();
+          readableByteChannel.close();
         }
         catch (final IOException e)
         {
@@ -204,8 +239,8 @@ public final class IoUtilExample
 
   private static void readInputStreamKommonLee()
   {
-    System.out.println("\n>> IoUtilExample.readInputStreamKommonLee() <<");
-    final InputStream inputStream = IoUtilExample.class.getResourceAsStream("/test.txt");
+    System.out.println("\n>> NioUtilExample.readInputStreamKommonLee() <<");
+    final InputStream inputStream = NioUtilExample.class.getResourceAsStream("/test.txt");
     final ByteArrayConsumingContainer byteArrayConsumingContainer = DataConsumers.newByteArrayConsumingContainer();
     readInputStream(inputStream, BUFFER_SIZE_128Ki, byteArrayConsumingContainer);
     System.out.println(byteArrayConsumingContainer.toString());
