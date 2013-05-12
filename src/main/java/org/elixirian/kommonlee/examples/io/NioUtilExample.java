@@ -34,7 +34,6 @@ package org.elixirian.kommonlee.examples.io;
 import static org.elixirian.kommonlee.io.IoCommonConstants.*;
 import static org.elixirian.kommonlee.nio.util.NioUtil.*;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -51,8 +50,6 @@ import java.util.List;
 
 import org.elixirian.kommonlee.io.ByteArrayConsumingContainer;
 import org.elixirian.kommonlee.io.DataConsumers;
-import org.elixirian.kommonlee.io.exception.RuntimeFileNotFoundException;
-import org.elixirian.kommonlee.io.exception.RuntimeIoException;
 
 /**
  * <pre>
@@ -72,7 +69,7 @@ import org.elixirian.kommonlee.io.exception.RuntimeIoException;
  * </pre>
  * 
  * @author Lee, SeongHyun (Kevin)
- * @version 0.0.1 (2012-10-28)
+ * @version 0.0.1 (2013-05-12)
  */
 public final class NioUtilExample
 {
