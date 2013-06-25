@@ -4,7 +4,7 @@
   <title><![CDATA[KommonLee Examples]]></title>
   <link href="http://Kevin-Lee.github.io/kommonlee-examples/atom.xml" rel="self"/>
   <link href="http://Kevin-Lee.github.io/kommonlee-examples/"/>
-  <updated>2013-06-25T17:58:28+10:00</updated>
+  <updated>2013-06-25T18:57:36+10:00</updated>
   <id>http://Kevin-Lee.github.io/kommonlee-examples/</id>
   <author>
     <name><![CDATA[Kevin Lee]]></name>
@@ -12,5 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[KommonLee]]></title>
+    <link href="http://Kevin-Lee.github.io/kommonlee-examples/blog/2012/10/08/kommonlee/"/>
+    <updated>2012-10-08T07:45:00+11:00</updated>
+    <id>http://Kevin-Lee.github.io/kommonlee-examples/blog/2012/10/08/kommonlee</id>
+    <content type="html"><![CDATA[<h2>KommonLee</h2>
+
+<p><strong>KommonLee</strong> (pronounced the same as &lsquo;commonly&rsquo;) is a set of commonly used Java libraries written by <a href="http://lckymn.com" title="Kevin Lee">Kevin Lee</a> and is currently used in the <a href="http://lckymn.com/kevin-projects.html">software projects</a> owned by Elixirian Pty Ltd and Agin3 Pty Ltd. It is an open source  project (<a href="http://projects.elixirian.org/kommonlee/browser">browse source code</a>).  The main goal of this project is to create better APIs for Java to make Java programming fun and enjoyable with fewer chances to introduce bugs.</p>
+
+<p>The project home page is <a href="http://projects.elixirian.org/kommonlee" title="KommonLee">here</a>.</p>
+
+<h2>KommonLee Examples</h2>
+
+<p>This project provides the Kommon examples like</p>
+
+<figure class='code'><figcaption><span>KommonLee Example - Read File </span></figcaption>
+ <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kd">final</span> <span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="n">IoUtilExample</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResource</span><span class="o">(</span><span class="s">&quot;/test.txt&quot;</span><span class="o">)</span>
+</span><span class='line'>                                    <span class="o">.</span><span class="na">toString</span><span class="o">()));</span>
+</span><span class='line'><span class="kd">final</span> <span class="n">ByteArrayConsumingContainer</span> <span class="n">byteArrayConsumingContainer</span> <span class="o">=</span>
+</span><span class='line'>                                <span class="n">DataConsumers</span><span class="o">.</span><span class="na">newByteArrayConsumingContainer</span><span class="o">();</span>
+</span><span class='line'><span class="n">readFile</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">BUFFER_SIZE_128Ki</span><span class="o">,</span> <span class="n">byteArrayConsumingContainer</span><span class="o">);</span>
+</span><span class='line'><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">byteArrayConsumingContainer</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
   
 </feed>
