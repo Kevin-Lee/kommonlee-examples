@@ -4,7 +4,7 @@
   <title><![CDATA[Category: General Info | KommonLee Examples]]></title>
   <link href="http://Kevin-Lee.github.io/kommonlee-examples/blog/categories/general-info/atom.xml" rel="self"/>
   <link href="http://Kevin-Lee.github.io/kommonlee-examples/"/>
-  <updated>2013-06-26T18:27:49+10:00</updated>
+  <updated>2013-06-26T23:14:08+10:00</updated>
   <id>http://Kevin-Lee.github.io/kommonlee-examples/</id>
   <author>
     <name><![CDATA[Kevin Lee]]></name>
@@ -18,13 +18,13 @@
     <link href="http://Kevin-Lee.github.io/kommonlee-examples/blog/2012/10/08/kommonlee/"/>
     <updated>2012-10-08T07:45:00+11:00</updated>
     <id>http://Kevin-Lee.github.io/kommonlee-examples/blog/2012/10/08/kommonlee</id>
-    <content type="html"><![CDATA[<h2>KommonLee</h2>
+    <content type="html"><![CDATA[<p style="text-align:center;"><img src="http://instacod.es/file/76474" title="KommonLee Example Code" alt="KommonLee Example Code" /></p>
+
+<h2>KommonLee</h2>
 
 <p><strong>KommonLee</strong> (pronounced the same as &lsquo;commonly&rsquo;) is a set of commonly used Java libraries written by <a href="http://lckymn.com" title="Kevin Lee">Kevin Lee</a> and is currently used in the <a href="http://lckymn.com/kevin-projects.html">software projects</a> owned by Elixirian Pty Ltd and Agin3 Pty Ltd. It is an open source  project (<a href="http://projects.elixirian.org/kommonlee/browser">browse source code</a>).  The main goal of this project is to create better APIs for Java to make Java programming fun and enjoyable with fewer chances to introduce bugs.</p>
 
 <p>The project home page is <a href="http://projects.elixirian.org/kommonlee" title="KommonLee">here</a>.</p>
-
-<p><img src="http://instacod.es/file/76474" title="KommonLee Example Code" alt="KommonLee Example Code" /></p>
 
 <h2>KommonLee Examples</h2>
 
